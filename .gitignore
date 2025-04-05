@@ -1,0 +1,23 @@
+# Файлы окружения
+.env
+.env.local
+
+# Зависимости
+node_modules/
+dist/
+
+# Логи и временные файлы
+*.log
+logs.txt
+
+# Настройки IDE
+.vscode/
+.idea/
+
+# Системные файлы
+.DS_Store
+Thumbs.db
+
+# Solana-специфичные файлы
+test-ledger/
+.cache/
