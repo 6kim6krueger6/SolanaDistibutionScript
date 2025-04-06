@@ -36,9 +36,9 @@ Modify the last line in ```src/index.ts``` to specify:
 - Amount of SOL to distribute (first parameter)
 - Number of recipient wallets (second parameter)
 
-Example (distributes 1 SOL to 15 wallets):
+Example (distributes a random value of SOL from 0.2 to 0.5, to 20 wallets):
 ```typescript
-transferSol(1, 15); // Adjust these values as needed
+transferSol(0.2, 0.5, 15); // Adjust these values as needed
 ```
 Then run:
 ```bash

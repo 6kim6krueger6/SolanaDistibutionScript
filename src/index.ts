@@ -20,8 +20,14 @@ const senderPrivateKeyString = process.env.PRIVATE_KEY as string;
 const senderPrivateKey = bs58.decode(senderPrivateKeyString);
 const sender = Keypair.fromSecretKey(senderPrivateKey);
 
-async function transferSol(solAmount: number, numberOfAccounts: number) {
+function randomBetween(min: number, max: number): number{
+    return Math.random()*(max - min)+min; 
+}
+
+async function transferSol(solAmountMin: number,solAmountMax: number, numberOfAccounts: number) {
+    const addPriorityFee = ComputeBudgetProgram.setComputeUnitPrice({ microLamports: 1000 });
     for (let account = 1; account <= numberOfAccounts; account++) {
+        const solAmount = randomBetween(solAmountMin, solAmountMax);
         let connection = new Connection(clusterApiUrl("devnet"),"confirmed");
         const keypair = Keypair.generate();
         const transferInstruction = SystemProgram.transfer({
@@ -30,7 +36,6 @@ async function transferSol(solAmount: number, numberOfAccounts: number) {
             lamports: Math.floor(solAmount/numberOfAccounts * LAMPORTS_PER_SOL),
         });
 
-        const addPriorityFee = ComputeBudgetProgram.setComputeUnitPrice({ microLamports: 1000 });
         const transaction = new Transaction().add(addPriorityFee,transferInstruction);
         const signature = await sendAndConfirmTransaction(
             connection,
@@ -40,20 +45,18 @@ async function transferSol(solAmount: number, numberOfAccounts: number) {
 
         console.log(
             `Transaction no.${account} signature: `,
-            `https://solscan.io/tx/${signature}?cluster=devnet\n`,
-            `Private key: ${bs58.encode(keypair.secretKey)}`
+            `https://solscan.io/tx/${signature}?cluster=devnet\n`
         );
 
-        appendFile('./logs.txt', bs58.encode(keypair.secretKey) + '\n', (err) => {
+        appendFile('./logs.txt', `${account}.https://solscan.io/tx/${signature}?cluster=devnet\t key:`+ bs58.encode(keypair.secretKey) + ` amount:${solAmount}`+'\n', (err) => {
             if (err) {
-              console.error('Ошибка при записи файла:', err);
-            } else {
-              console.log('Файл успешно записан');
+              console.error('Error while writing a file:', err);
             }
         });
         
     }
 }
 
-transferSol(1, 15);
+transferSol(0.1, 0.3, 20);
+
 
