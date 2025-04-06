@@ -33,8 +33,9 @@ A TypeScript tool for distributing SOL tokens to multiple generated wallets on t
 
 ### Running the Distributor
 Modify the last line in ```src/index.ts``` to specify:
-- Amount of SOL to distribute (first parameter)
-- Number of recipient wallets (second parameter)
+- Min amount of SOL to distribute (first parameter)
+- Max amount of SOL to distribute (second parameter)
+- Number of recipient wallets (third parameter)
 
 Example (distributes a random value of SOL from 0.2 to 0.5, to 20 wallets):
 ```typescript
