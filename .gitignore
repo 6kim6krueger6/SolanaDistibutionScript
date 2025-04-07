@@ -9,6 +9,8 @@ dist/
 # Логи и временные файлы
 *.log
 logs.txt
+adresses.txt
+wallets.csv
 
 # Настройки IDE
 .vscode/

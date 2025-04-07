@@ -32,7 +32,8 @@ A TypeScript tool for distributing SOL tokens to multiple generated wallets on t
     ⚠️ Important: Never commit your .env file or share your private key!
 
 ### Running the Distributor
-Modify the last line in ```src/index.ts``` to specify:
+#### Random SOL distribution to random generated wallets
+If you want to distribute your SOL to random generated wallets, modify the last line in ```src/index.ts``` to specify:
 - Min amount of SOL to distribute (first parameter)
 - Max amount of SOL to distribute (second parameter)
 - Number of recipient wallets (third parameter)
@@ -41,6 +42,13 @@ Example (distributes a random value of SOL from 0.2 to 0.5, to 20 wallets):
 ```typescript
 transferSol(0.2, 0.5, 15); // Adjust these values as needed
 ```
+Then run:
+```bash
+npm start
+```
+#### SOL distribution to existing wallets
+If you already have wallets, you can prepare a ```wallets.csv``` file, like at ```wallets.csv.example``` file and call ```transferSolCsv()``` function without any parameters
+
 Then run:
 ```bash
 npm start
